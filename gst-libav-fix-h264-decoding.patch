@@ -1,0 +1,84 @@
+From 879052472841d584e0aad21ac220131b586c1de5 Mon Sep 17 00:00:00 2001
+From: Tim-Philipp Müller <tim@centricular.net>
+Date: Mon, 25 Feb 2013 10:38:09 +0000
+Subject: avviddec: fix H.264 decoding errors by disabling multi-threaded decoding
+
+Multi-threaded decoding does not work properly with the older libav 0.8
+version included in this gst-libav series, so just disable multi-threaded
+decoding again entirely for now. (We could also switch from FF_THREAD_SLICE
+to FF_THREAD_FRAME, but that may have other side-effects and just disabling
+it seems safest for now).
+
+This works properly in git master with more recent libav 0.9.x versions.
+
+Adventurous users may still re-enable this functionality by setting
+the GST_AVVIDDEC_MAX_THREADS environment variable to 'auto' or the
+max. number of threads desired.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=694230
+---
+diff --git a/ext/libav/gstavutils.c b/ext/libav/gstavutils.c
+index 8555d8d..f7a80f6 100644
+--- a/ext/libav/gstavutils.c
++++ b/ext/libav/gstavutils.c
+@@ -476,6 +476,7 @@ gst_ffmpeg_auto_max_threads (void)
+     if (n < 1)
+       n = 1;
+ 
++    GST_INFO ("threads: %d", n);
+     g_once_init_leave (&n_threads, n);
+   }
+ 
+diff --git a/ext/libav/gstavviddec.c b/ext/libav/gstavviddec.c
+index 669a75d..caf3e2e 100644
+--- a/ext/libav/gstavviddec.c
++++ b/ext/libav/gstavviddec.c
+@@ -106,7 +106,7 @@ struct _GstFFMpegVidDecClass
+ #define DEFAULT_SKIPFRAME		0
+ #define DEFAULT_DIRECT_RENDERING	TRUE
+ #define DEFAULT_DEBUG_MV		FALSE
+-#define DEFAULT_MAX_THREADS		0
++#define DEFAULT_MAX_THREADS		1
+ 
+ enum
+ {
+@@ -470,14 +470,30 @@ gst_ffmpegviddec_set_format (GstVideoDecoder * decoder,
+    * supports it) */
+   ffmpegdec->context->debug_mv = ffmpegdec->debug_mv;
+ 
+-  if (ffmpegdec->max_threads == 0) {
+-    if (!(oclass->in_plugin->capabilities & CODEC_CAP_AUTO_THREADS))
+-      ffmpegdec->context->thread_count = gst_ffmpeg_auto_max_threads ();
+-    else
+-      ffmpegdec->context->thread_count = 0;
+-  } else
+-    ffmpegdec->context->thread_count = ffmpegdec->max_threads;
++  {
++    const gchar *env = g_getenv ("GST_AVVIDDEC_MAX_THREADS");
++    int max_threads = ffmpegdec->max_threads;
++
++    if (env != NULL) {
++      if (g_str_equal (env, "auto"))
++        max_threads = 0;
++      else
++        max_threads = MAX (atoi (env), 0);
++
++      if (max_threads != 1) {
++        GST_WARNING_OBJECT (ffmpegdec, "max threads forced to %d, this might "
++            "lead to decoding errors or artefacts", max_threads);
++      }
++    }
+ 
++    if (max_threads == 0) {
++      if (!(oclass->in_plugin->capabilities & CODEC_CAP_AUTO_THREADS))
++        ffmpegdec->context->thread_count = gst_ffmpeg_auto_max_threads ();
++      else
++        ffmpegdec->context->thread_count = 0;
++    } else
++      ffmpegdec->context->thread_count = max_threads;
++  }
+   ffmpegdec->context->thread_type = FF_THREAD_SLICE;
+ 
+   /* open codec - we don't select an output pix_fmt yet,
+--
+cgit v0.9.0.2-2-gbebe
