@@ -1,16 +1,15 @@
 Name:           gstreamer1-libav
-Version:        1.0.5
-Release:        2%{?dist}
+Version:        1.0.6
+Release:        1%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 Group:          Applications/Multimedia
 License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
 Source0:        http://gstreamer.freedesktop.org/src/gst-libav/gst-libav-%{version}.tar.xz
 # We drop in a newer libav to get all the security bugfixes from there!
-Source1:        http://libav.org/releases/libav-0.8.5.tar.xz
+Source1:        http://libav.org/releases/libav-0.8.6.tar.xz
 Patch0:         gst-ffmpeg-0.10.12-ChangeLog-UTF-8.patch
-Patch1:         gst-libav-fix-h264-decoding.patch
-Patch2:         libav-dsputil-fix-segfault-in-dsputil_init-with-gcc4.8.patch
+Patch1:         gst-libav-configure-set-the-assembler.patch
 BuildRequires:  gstreamer1-devel >= 1.0.0
 BuildRequires:  gstreamer1-plugins-base-devel >= 1.0.0
 BuildRequires:  orc-devel bzip2-devel zlib-devel
@@ -33,11 +32,9 @@ This package provides libav-based GStreamer plug-ins.
 %setup -q -n gst-libav-%{version} -a 1
 %patch0 -p1
 %patch1 -p1
-pushd libav-0.8.5
-%patch2 -p1
-popd
+chmod +x configure
 rm -r gst-libs/ext/libav
-mv libav-0.8.5 gst-libs/ext/libav
+mv libav-0.8.6 gst-libs/ext/libav
 
 
 %build
@@ -62,6 +59,11 @@ rm $RPM_BUILD_ROOT%{_libdir}/gstreamer-1.0/libgst*.la
 
 
 %changelog
+* Mon Mar 25 2013 Hans de Goede <j.w.r.degoede@gmail.com> - 1.0.6-1
+- Rebase to 1.0.6
+- Upgrade the buildin libav to 0.8.6 to get all the security fixes from
+  upstream libav
+
 * Sun Mar 10 2013 Hans de Goede <j.w.r.degoede@gmail.com> - 1.0.5-2
 - Add a patch from upstream git to fix h264 decoding artifacts (rf#2710)
 - Add a patch from upstream libav to fix miscompilation with gcc-4.8
