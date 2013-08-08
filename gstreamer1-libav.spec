@@ -1,5 +1,5 @@
 Name:           gstreamer1-libav
-Version:        1.0.6
+Version:        1.0.9
 Release:        1%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 Group:          Applications/Multimedia
@@ -7,9 +7,8 @@ License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
 Source0:        http://gstreamer.freedesktop.org/src/gst-libav/gst-libav-%{version}.tar.xz
 # We drop in a newer libav to get all the security bugfixes from there!
-Source1:        http://libav.org/releases/libav-0.8.6.tar.xz
+#Source1:        http://libav.org/releases/libav-0.8.8.tar.xz
 Patch0:         gst-ffmpeg-0.10.12-ChangeLog-UTF-8.patch
-Patch1:         gst-libav-configure-set-the-assembler.patch
 BuildRequires:  gstreamer1-devel >= 1.0.0
 BuildRequires:  gstreamer1-plugins-base-devel >= 1.0.0
 BuildRequires:  orc-devel bzip2-devel zlib-devel
@@ -29,12 +28,13 @@ This package provides libav-based GStreamer plug-ins.
 
 
 %prep
-%setup -q -n gst-libav-%{version} -a 1
+%setup -q -n gst-libav-%{version}
 %patch0 -p1
-%patch1 -p1
-chmod +x configure
-rm -r gst-libs/ext/libav
-mv libav-0.8.6 gst-libs/ext/libav
+
+# Use this when overriding the buildin libav
+#setup -q -n gst-libav-%{version} -a 1
+#rm -r gst-libs/ext/libav
+#mv libav-0.8.8 gst-libs/ext/libav
 
 
 %build
@@ -48,7 +48,7 @@ make %{?_smp_mflags} V=1
 
 
 %install
-make install V=1 DESTDIR=$RPM_BUILD_ROOT
+%make_install V=1
 rm $RPM_BUILD_ROOT%{_libdir}/gstreamer-1.0/libgst*.la
 
 
@@ -59,6 +59,12 @@ rm $RPM_BUILD_ROOT%{_libdir}/gstreamer-1.0/libgst*.la
 
 
 %changelog
+* Tue Aug  6 2013 Hans de Goede <j.w.r.degoede@gmail.com> - 1.0.9-1
+- Rebase to 1.0.9
+- This includes an upgrade of the buildin libav to 0.8.8 which includes a
+  bunch of security fixes from
+- No longer overwrite the included libav, as the bundled one is the latest
+
 * Mon Mar 25 2013 Hans de Goede <j.w.r.degoede@gmail.com> - 1.0.6-1
 - Rebase to 1.0.6
 - Upgrade the buildin libav to 0.8.6 to get all the security fixes from
