@@ -1,17 +1,16 @@
 Name:           gstreamer1-libav
-Version:        1.0.9
+Version:        1.1.3
 Release:        1%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 Group:          Applications/Multimedia
 License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
 Source0:        http://gstreamer.freedesktop.org/src/gst-libav/gst-libav-%{version}.tar.xz
-# We drop in a newer libav to get all the security bugfixes from there!
-#Source1:        http://libav.org/releases/libav-0.8.8.tar.xz
 Patch0:         gst-ffmpeg-0.10.12-ChangeLog-UTF-8.patch
+Patch1:         gst-libav-1.1.3-comma-in-typename.patch
 BuildRequires:  gstreamer1-devel >= 1.0.0
 BuildRequires:  gstreamer1-plugins-base-devel >= 1.0.0
-BuildRequires:  orc-devel bzip2-devel zlib-devel
+BuildRequires:  orc-devel bzip2-devel zlib-devel ffmpeg-devel
 %ifarch %{ix86} x86_64
 BuildRequires:  yasm
 %endif
@@ -30,20 +29,16 @@ This package provides libav-based GStreamer plug-ins.
 %prep
 %setup -q -n gst-libav-%{version}
 %patch0 -p1
-
-# Use this when overriding the buildin libav
-#setup -q -n gst-libav-%{version} -a 1
-#rm -r gst-libs/ext/libav
-#mv libav-0.8.8 gst-libs/ext/libav
+%patch1 -p1
 
 
 %build
-# Note no --with-system-ffmpeg *for now*, as gst-ffmpeg wants libav-0.8,
-# and the system ffmpeg is 0.11, which is more or less libav-0.9
 %configure --disable-dependency-tracking --disable-static \
   --with-package-name="gst-libav 1.0 rpmfusion rpm" \
   --with-package-origin="http://rpmfusion.org/" \
-  --with-libav-extra-configure="--enable-runtime-cpudetect --arch=%{_target_cpu} --optflags=\\\"\\\$RPM_OPT_FLAGS\\\""
+  --with-system-libav
+# Keep this around in case we switch back to the built-in libav
+#  --with-libav-extra-configure="--enable-runtime-cpudetect --arch=%{_target_cpu} --optflags=\\\"\\\$RPM_OPT_FLAGS\\\""
 make %{?_smp_mflags} V=1
 
 
@@ -55,10 +50,13 @@ rm $RPM_BUILD_ROOT%{_libdir}/gstreamer-1.0/libgst*.la
 %files
 %doc AUTHORS COPYING.LIB ChangeLog NEWS README TODO
 %{_libdir}/gstreamer-1.0/libgstlibav.so
-%{_libdir}/gstreamer-1.0/libgstavscale.so
 
 
 %changelog
+* Thu Aug  8 2013 Hans de Goede <j.w.r.degoede@gmail.com> - 1.1.3-1
+- Rebase to 1.1.3
+- Switch back to using system ffmpeg
+
 * Tue Aug  6 2013 Hans de Goede <j.w.r.degoede@gmail.com> - 1.0.9-1
 - Rebase to 1.0.9
 - This includes an upgrade of the buildin libav to 0.8.8 which includes a
