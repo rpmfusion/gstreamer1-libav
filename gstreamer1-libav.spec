@@ -1,6 +1,6 @@
 Name:           gstreamer1-libav
 Version:        1.1.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 Group:          Applications/Multimedia
 License:        LGPLv2+
@@ -8,6 +8,7 @@ URL:            http://gstreamer.freedesktop.org/
 Source0:        http://gstreamer.freedesktop.org/src/gst-libav/gst-libav-%{version}.tar.xz
 Patch0:         gst-ffmpeg-0.10.12-ChangeLog-UTF-8.patch
 Patch1:         gst-libav-1.1.3-comma-in-typename.patch
+Patch2:         gst-libav-1.1.3-ffmpeg-2.0.patch
 BuildRequires:  gstreamer1-devel >= 1.0.0
 BuildRequires:  gstreamer1-plugins-base-devel >= 1.0.0
 BuildRequires:  orc-devel bzip2-devel zlib-devel ffmpeg-devel
@@ -30,6 +31,8 @@ This package provides libav-based GStreamer plug-ins.
 %setup -q -n gst-libav-%{version}
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
+sed -i 's/CodecID/AVCodecID/g' ext/libav/*.h ext/libav/*.c
 
 
 %build
@@ -53,6 +56,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/gstreamer-1.0/libgst*.la
 
 
 %changelog
+* Thu Aug  8 2013 Hans de Goede <j.w.r.degoede@gmail.com> - 1.1.3-2
+- Rebuild for ffmpeg-2.0
+
 * Thu Aug  8 2013 Hans de Goede <j.w.r.degoede@gmail.com> - 1.1.3-1
 - Rebase to 1.1.3
 - Switch back to using system ffmpeg
