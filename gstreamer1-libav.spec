@@ -1,6 +1,6 @@
 Name:           gstreamer1-libav
 Version:        1.1.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 Group:          Applications/Multimedia
 License:        LGPLv2+
@@ -56,6 +56,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/gstreamer-1.0/libgst*.la
 
 
 %changelog
+* Mon Sep 30 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.1.3-4
+- Rebuilt
+
 * Tue Aug 27 2013 Hans de Goede <j.w.r.degoede@gmail.com> - 1.1.3-3
 - Rebuild now devel properly points to f20
 
