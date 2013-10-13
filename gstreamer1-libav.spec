@@ -1,14 +1,14 @@
 Name:           gstreamer1-libav
-Version:        1.1.3
-Release:        4%{?dist}
+Version:        1.2.0
+Release:        1%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 Group:          Applications/Multimedia
 License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
 Source0:        http://gstreamer.freedesktop.org/src/gst-libav/gst-libav-%{version}.tar.xz
+# We drop in a newer libav to get all the security bugfixes from there!
+Source1:        http://libav.org/releases/libav-9.10.tar.xz
 Patch0:         gst-ffmpeg-0.10.12-ChangeLog-UTF-8.patch
-Patch1:         gst-libav-1.1.3-comma-in-typename.patch
-Patch2:         gst-libav-1.1.3-ffmpeg-2.0.patch
 BuildRequires:  gstreamer1-devel >= 1.0.0
 BuildRequires:  gstreamer1-plugins-base-devel >= 1.0.0
 BuildRequires:  orc-devel bzip2-devel zlib-devel ffmpeg-devel
@@ -28,20 +28,17 @@ This package provides libav-based GStreamer plug-ins.
 
 
 %prep
-%setup -q -n gst-libav-%{version}
+%setup -q -n gst-libav-%{version} -a 1
+rm -r gst-libs/ext/libav
+mv libav-9.10 gst-libs/ext/libav
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
-sed -i 's/CodecID/AVCodecID/g' ext/libav/*.h ext/libav/*.c
 
 
 %build
 %configure --disable-dependency-tracking --disable-static \
   --with-package-name="gst-libav 1.0 rpmfusion rpm" \
   --with-package-origin="http://rpmfusion.org/" \
-  --with-system-libav
-# Keep this around in case we switch back to the built-in libav
-#  --with-libav-extra-configure="--enable-runtime-cpudetect --arch=%{_target_cpu} --optflags=\\\"\\\$RPM_OPT_FLAGS\\\""
+  --with-libav-extra-configure="--enable-runtime-cpudetect --arch=%{_target_cpu} --optflags=\\\"\\\$RPM_OPT_FLAGS\\\""
 make %{?_smp_mflags} V=1
 
 
@@ -56,6 +53,14 @@ rm $RPM_BUILD_ROOT%{_libdir}/gstreamer-1.0/libgst*.la
 
 
 %changelog
+* Sun Oct 13 2013 Hans de Goede <j.w.r.degoede@gmail.com> - 1.2.0-1
+- Rebase to 1.2.0
+- Upgrade the buildin libav to 9.10 to get all the security fixes from
+  upstream libav
+- Switch back to included libav copy again, libav and ffmpeg have
+  deviated to much to use a system ffmpeg lib as libav replacement,
+  this fixes a bad memory-leak (rpmfusion#2976)
+
 * Mon Sep 30 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.1.3-4
 - Rebuilt
 
