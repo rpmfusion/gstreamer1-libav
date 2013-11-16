@@ -1,5 +1,5 @@
 Name:           gstreamer1-libav
-Version:        1.2.0
+Version:        1.2.1
 Release:        1%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 Group:          Applications/Multimedia
@@ -53,6 +53,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/gstreamer-1.0/libgst*.la
 
 
 %changelog
+* Sat Nov 16 2013 Hans de Goede <j.w.r.degoede@gmail.com> - 1.2.1-1
+- Rebase to 1.2.1
+
 * Sun Oct 13 2013 Hans de Goede <j.w.r.degoede@gmail.com> - 1.2.0-1
 - Rebase to 1.2.0
 - Upgrade the buildin libav to 9.10 to get all the security fixes from
