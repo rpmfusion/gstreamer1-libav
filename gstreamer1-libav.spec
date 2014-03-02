@@ -1,5 +1,5 @@
 Name:           gstreamer1-libav
-Version:        1.2.1
+Version:        1.2.3
 Release:        1%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 Group:          Applications/Multimedia
@@ -7,7 +7,7 @@ License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
 Source0:        http://gstreamer.freedesktop.org/src/gst-libav/gst-libav-%{version}.tar.xz
 # We drop in a newer libav to get all the security bugfixes from there!
-Source1:        http://libav.org/releases/libav-9.10.tar.xz
+Source1:        http://libav.org/releases/libav-9.11.tar.xz
 Patch0:         gst-ffmpeg-0.10.12-ChangeLog-UTF-8.patch
 BuildRequires:  gstreamer1-devel >= 1.0.0
 BuildRequires:  gstreamer1-plugins-base-devel >= 1.0.0
@@ -30,7 +30,7 @@ This package provides libav-based GStreamer plug-ins.
 %prep
 %setup -q -n gst-libav-%{version} -a 1
 rm -r gst-libs/ext/libav
-mv libav-9.10 gst-libs/ext/libav
+mv libav-9.11 gst-libs/ext/libav
 %patch0 -p1
 
 
@@ -53,6 +53,13 @@ rm $RPM_BUILD_ROOT%{_libdir}/gstreamer-1.0/libgst*.la
 
 
 %changelog
+* Sat Feb 15 2014 Michael Kuhn <suraia@ikkoku.de> - 1.2.3-1
+- Update to 1.2.3.
+- Update libav to 9.11.
+
+* Sat Jan 04 2014 Michael Kuhn <suraia@ikkoku.de> - 1.2.2-1
+- Update to 1.2.2.
+
 * Sat Nov 16 2013 Hans de Goede <j.w.r.degoede@gmail.com> - 1.2.1-1
 - Rebase to 1.2.1
 
