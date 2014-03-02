@@ -1,13 +1,13 @@
 Name:           gstreamer1-libav
 Version:        1.0.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 Group:          Applications/Multimedia
 License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
 Source0:        http://gstreamer.freedesktop.org/src/gst-libav/gst-libav-%{version}.tar.xz
 # We drop in a newer libav to get all the security bugfixes from there!
-#Source1:        http://libav.org/releases/libav-0.8.8.tar.xz
+Source1:        http://libav.org/releases/libav-0.8.10.tar.xz
 Patch0:         gst-ffmpeg-0.10.12-ChangeLog-UTF-8.patch
 BuildRequires:  gstreamer1-devel >= 1.0.0
 BuildRequires:  gstreamer1-plugins-base-devel >= 1.0.0
@@ -28,13 +28,11 @@ This package provides libav-based GStreamer plug-ins.
 
 
 %prep
-%setup -q -n gst-libav-%{version}
+%setup -q -n gst-libav-%{version} -a 1
 %patch0 -p1
 
-# Use this when overriding the buildin libav
-#setup -q -n gst-libav-%{version} -a 1
-#rm -r gst-libs/ext/libav
-#mv libav-0.8.8 gst-libs/ext/libav
+rm -r gst-libs/ext/libav
+mv libav-0.8.10 gst-libs/ext/libav
 
 
 %build
@@ -59,6 +57,10 @@ rm $RPM_BUILD_ROOT%{_libdir}/gstreamer-1.0/libgst*.la
 
 
 %changelog
+* Sun Mar  2 2014 Hans de Goede <j.w.r.degoede@gmail.com> - 1.0.10-2
+- Upgrade the buildin libav to 0.8.10 to get all the security fixes from
+  upstream libav
+
 * Sun Oct 13 2013 Hans de Goede <j.w.r.degoede@gmail.com> - 1.0.10-1
 - Rebase to 1.0.10
 
