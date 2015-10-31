@@ -1,16 +1,14 @@
 Name:           gstreamer1-libav
-Version:        1.4.5
+Version:        1.6.1
 Release:        1%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 Group:          Applications/Multimedia
 License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
 Source0:        http://gstreamer.freedesktop.org/src/gst-libav/gst-libav-%{version}.tar.xz
-# We drop in a newer libav to get all the security bugfixes from there!
-Source1:        http://libav.org/releases/libav-10.6.tar.xz
 Patch0:         gst-ffmpeg-0.10.12-ChangeLog-UTF-8.patch
-BuildRequires:  gstreamer1-devel >= 1.4.0
-BuildRequires:  gstreamer1-plugins-base-devel >= 1.4.0
+BuildRequires:  gstreamer1-devel >= 1.6.0
+BuildRequires:  gstreamer1-plugins-base-devel >= 1.6.0
 BuildRequires:  orc-devel bzip2-devel zlib-devel ffmpeg-devel
 %ifarch %{ix86} x86_64
 BuildRequires:  yasm
@@ -42,17 +40,19 @@ plug-in.
 
 
 %prep
-%setup -q -n gst-libav-%{version} -a 1
-rm -r gst-libs/ext/libav
-mv libav-10.6 gst-libs/ext/libav
+%setup -q -n gst-libav-%{version}
 %patch0 -p1
+# hack to allow building against 1.6.0 as 1.6.1 is not yet in the buildroot
+sed -i 's/GST_REQ=1.6.1/GST_REQ=1.6.0/' configure
+sed -i 's/GST_PBREQ=1.6.1/GST_PBREQ=1.6.0/' configure
 
 
 %build
+export CFLAGS="$RPM_OPT_FLAGS -Wno-deprecated-declarations"
 %configure --disable-dependency-tracking --disable-static \
   --with-package-name="gst-libav 1.0 rpmfusion rpm" \
   --with-package-origin="http://rpmfusion.org/" \
-  --with-libav-extra-configure="--enable-runtime-cpudetect --arch=%{_target_cpu} --optflags=\\\"\\\$RPM_OPT_FLAGS\\\""
+  --with-system-libav
 make %{?_smp_mflags} V=1
 
 
@@ -71,6 +71,10 @@ rm $RPM_BUILD_ROOT%{_libdir}/gstreamer-1.0/libgst*.la
 
 
 %changelog
+* Sat Oct 31 2015 Hans de Goede <j.w.r.degoede@gmail.com> - 1.6.1-1
+- Update to 1.6.1
+- Upstream is using ffmpeg instead of libav now, switch to system ffmpeg-libs
+
 * Sat May 16 2015 Hans de Goede <j.w.r.degoede@gmail.com> - 1.4.5-1
 - Update to 1.4.5
 - Update libav to 10.6
