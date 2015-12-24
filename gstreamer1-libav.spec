@@ -1,5 +1,5 @@
 Name:           gstreamer1-libav
-Version:        1.6.1
+Version:        1.6.2
 Release:        1%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 Group:          Applications/Multimedia
@@ -71,6 +71,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/gstreamer-1.0/libgst*.la
 
 
 %changelog
+* Thu Dec 24 2015 Hans de Goede <j.w.r.degoede@gmail.com> - 1.6.2-1
+- Update to 1.6.2
+
 * Sat Oct 31 2015 Hans de Goede <j.w.r.degoede@gmail.com> - 1.6.1-1
 - Update to 1.6.1
 - Upstream is using ffmpeg instead of libav now, switch to system ffmpeg-libs
