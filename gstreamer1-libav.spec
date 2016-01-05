@@ -42,9 +42,9 @@ plug-in.
 %prep
 %setup -q -n gst-libav-%{version}
 %patch0 -p1
-# hack to allow building against 1.6.0 as 1.6.1 is not yet in the buildroot
-sed -i 's/GST_REQ=1.6.1/GST_REQ=1.6.0/' configure
-sed -i 's/GST_PBREQ=1.6.1/GST_PBREQ=1.6.0/' configure
+# hack to allow building against 1.6.0 as 1.6.2 is not yet in the buildroot
+sed -i 's/GST_REQ=1.6.2/GST_REQ=1.6.0/' configure
+sed -i 's/GST_PBREQ=1.6.2/GST_PBREQ=1.6.0/' configure
 
 
 %build
