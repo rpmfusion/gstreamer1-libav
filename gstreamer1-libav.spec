@@ -1,5 +1,5 @@
 Name:           gstreamer1-libav
-Version:        1.6.2
+Version:        1.6.3
 Release:        1%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 Group:          Applications/Multimedia
@@ -42,9 +42,9 @@ plug-in.
 %prep
 %setup -q -n gst-libav-%{version}
 %patch0 -p1
-# hack to allow building against 1.6.0 as 1.6.2 is not yet in the buildroot
-sed -i 's/GST_REQ=1.6.2/GST_REQ=1.6.0/' configure
-sed -i 's/GST_PBREQ=1.6.2/GST_PBREQ=1.6.0/' configure
+# hack to allow building against 1.6.0 as 1.6.3 is not yet in the buildroot
+sed -i 's/GST_REQ=1.6.3/GST_REQ=1.6.0/' configure
+sed -i 's/GST_PBREQ=1.6.3/GST_PBREQ=1.6.0/' configure
 
 
 %build
@@ -71,6 +71,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/gstreamer-1.0/libgst*.la
 
 
 %changelog
+* Sat Jan 23 2016 Hans de Goede <j.w.r.degoede@gmail.com> - 1.6.3-1
+- Update to 1.6.3
+
 * Thu Dec 24 2015 Hans de Goede <j.w.r.degoede@gmail.com> - 1.6.2-1
 - Update to 1.6.2
 
