@@ -1,5 +1,5 @@
 Name:           gstreamer1-libav
-Version:        1.6.3
+Version:        1.6.4
 Release:        1%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 Group:          Applications/Multimedia
@@ -62,7 +62,8 @@ rm $RPM_BUILD_ROOT%{_libdir}/gstreamer-1.0/libgst*.la
 
 
 %files
-%doc AUTHORS COPYING.LIB ChangeLog NEWS README TODO
+%doc AUTHORS ChangeLog NEWS README TODO
+%license COPYING.LIB
 %{_libdir}/gstreamer-1.0/libgstlibav.so
 
 %files devel-docs
@@ -71,6 +72,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/gstreamer-1.0/libgst*.la
 
 
 %changelog
+* Sat May 21 2016 Hans de Goede <j.w.r.degoede@gmail.com> - 1.6.4-1
+- Update to 1.6.4
+
 * Sat Jan 23 2016 Hans de Goede <j.w.r.degoede@gmail.com> - 1.6.3-1
 - Update to 1.6.3
 
