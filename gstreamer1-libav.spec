@@ -1,6 +1,6 @@
 Name:           gstreamer1-libav
 Version:        1.8.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 Group:          Applications/Multimedia
 License:        LGPLv2+
@@ -69,6 +69,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/gstreamer-1.0/libgst*.la
 
 
 %changelog
+* Sat Jul 30 2016 Julian Sikorski <belegdol@fedoraproject.org> - 1.8.2-2
+- Rebuilt for ffmpeg-3.1.1
+
 * Sun Jun 12 2016 Hans de Goede <j.w.r.degoede@gmail.com> - 1.8.2-1
 - Update to 1.8.2
 
