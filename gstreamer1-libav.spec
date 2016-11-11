@@ -1,13 +1,12 @@
 Name:           gstreamer1-libav
 Version:        1.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 Group:          Applications/Multimedia
 License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
 Source0:        http://gstreamer.freedesktop.org/src/gst-libav/gst-libav-%{version}.tar.xz
 Patch0:         gst-ffmpeg-0.10.12-ChangeLog-UTF-8.patch
-Patch1:         ignore_vaapi.patch
 Patch2:         disable_ffmpeg_hw_acceleration.patch
 BuildRequires:  gstreamer1-devel >= 1.6.0
 BuildRequires:  gstreamer1-plugins-base-devel >= 1.6.0
@@ -44,7 +43,6 @@ plug-in.
 %prep
 %setup -q -n gst-libav-%{version}
 %patch0 -p1
-%patch1 -p1
 %patch2 -p1
 # Build against 1.9.2 as 1.10.0 is not yet in the stable Fedora repo
 sed -i 's/1.10.0/1.9.2/' configure
@@ -75,6 +73,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/gstreamer-1.0/libgst*.la
 
 
 %changelog
+* Fri Nov 11 2016 Hans de Goede <j.w.r.degoede@gmail.com> - 1.10.0-2
+- Drop no longer needed ignore_vaapi.patch
+
 * Fri Nov 11 2016 Hans de Goede <j.w.r.degoede@gmail.com> - 1.10.0-1
 - Update to 1.10.0
 
