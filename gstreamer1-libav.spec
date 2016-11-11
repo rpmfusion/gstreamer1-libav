@@ -1,6 +1,6 @@
 Name:           gstreamer1-libav
-Version:        1.8.2
-Release:        4%{?dist}
+Version:        1.8.3
+Release:        1%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 Group:          Applications/Multimedia
 License:        LGPLv2+
@@ -73,6 +73,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/gstreamer-1.0/libgst*.la
 
 
 %changelog
+* Fri Nov 11 2016 Hans de Goede <j.w.r.degoede@gmail.com> - 1.8.3-1
+- Update to 1.8.3
+
 * Fri Nov 11 2016 Leigh Scott <leigh123linux@googlemail.com> - 1.8.2-4
 - Add patch to disable ffmpeg hardware acceleration for nvenc and qsv (rfbz#4334)
 
