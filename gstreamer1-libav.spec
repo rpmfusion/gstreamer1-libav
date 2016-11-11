@@ -1,12 +1,13 @@
 Name:           gstreamer1-libav
 Version:        1.8.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 Group:          Applications/Multimedia
 License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
 Source0:        http://gstreamer.freedesktop.org/src/gst-libav/gst-libav-%{version}.tar.xz
 Patch0:         gst-ffmpeg-0.10.12-ChangeLog-UTF-8.patch
+Patch1:         ignore_vaapi.patch
 BuildRequires:  gstreamer1-devel >= 1.6.0
 BuildRequires:  gstreamer1-plugins-base-devel >= 1.6.0
 BuildRequires:  orc-devel bzip2-devel zlib-devel ffmpeg-devel
@@ -42,6 +43,7 @@ plug-in.
 %prep
 %setup -q -n gst-libav-%{version}
 %patch0 -p1
+%patch1 -p1
 
 
 %build
@@ -69,6 +71,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/gstreamer-1.0/libgst*.la
 
 
 %changelog
+* Fri Nov 11 2016 Leigh Scott <leigh123linux@googlemail.com> - 1.8.2-3
+- Add patch to ignore VAAPI decoders and VAAPI/nvenc encoders
+
 * Sat Jul 30 2016 Julian Sikorski <belegdol@fedoraproject.org> - 1.8.2-2
 - Rebuilt for ffmpeg-3.1.1
 
