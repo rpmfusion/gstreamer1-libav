@@ -43,23 +43,22 @@ plug-in.
 
 
 %prep
-%setup -q -n gst-libav-%{version}
-%patch0 -p1
+%autosetup -q -n gst-libav-%{version}
 
 
 %build
-export CFLAGS="$RPM_OPT_FLAGS -Wno-deprecated-declarations"
+export CFLAGS="%{optflags} -Wno-deprecated-declarations"
 %configure --disable-dependency-tracking \
   --disable-static \
   --with-package-name="gst-libav 1.0 rpmfusion rpm" \
   --with-package-origin="http://rpmfusion.org/" \
   --with-system-libav
-make %{?_smp_mflags} V=1
+%make_build V=1
 
 
 %install
 %make_install V=1
-rm $RPM_BUILD_ROOT%{_libdir}/gstreamer-1.0/libgst*.la
+rm %{buildroot}%{_libdir}/gstreamer-1.0/libgst*.la
 
 
 %files
