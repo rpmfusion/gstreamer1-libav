@@ -43,7 +43,7 @@ plug-in.
 
 
 %prep
-%autosetup -q -n gst-libav-%{version}
+%autosetup -n gst-libav-%{version}
 
 
 %build
