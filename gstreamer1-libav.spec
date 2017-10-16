@@ -1,6 +1,6 @@
 Name:           gstreamer1-libav
 Version:        1.12.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 Group:          Applications/Multimedia
 License:        LGPLv2+
@@ -72,6 +72,9 @@ rm %{buildroot}%{_libdir}/gstreamer-1.0/libgst*.la
 
 
 %changelog
+* Mon Oct 16 2017 Leigh Scott <leigh123linux@googlemail.com> - 1.12.3-2
+- Rebuild for ffmpeg update
+
 * Wed Sep 20 2017 Leigh Scott <leigh123linux@googlemail.com> - 1.12.3-1
 - Update to 1.12.3
 
