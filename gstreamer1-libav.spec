@@ -1,15 +1,12 @@
 Name:           gstreamer1-libav
-Version:        1.12.3
-Release:        3%{?dist}
+Version:        1.12.4
+Release:        1%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 Group:          Applications/Multimedia
 License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
 Source0:        http://gstreamer.freedesktop.org/src/gst-libav/gst-libav-%{version}.tar.xz
 Patch0:         gst-ffmpeg-0.10.12-ChangeLog-UTF-8.patch
-%if 0%{?fedora} > 27 || 0%{?rhel} > 8
-Patch1:         %{name}-temp-ffmpeg-3.4-api.patch
-%endif
 BuildRequires:  gstreamer1-devel >= %{version}
 BuildRequires:  gstreamer1-plugins-base-devel >= %{version}
 BuildRequires:  orc-devel
@@ -75,6 +72,10 @@ rm %{buildroot}%{_libdir}/gstreamer-1.0/libgst*.la
 
 
 %changelog
+* Mon Dec 11 2017 Leigh Scott <leigh123linux@googlemail.com> - 1.12.4-1
+- Update to 1.12.4
+- Remove patch for FFMpeg 3.4 APIs (fixed in ffmpeg-3.4.1)
+
 * Sat Nov 18 2017 Simone Caronni <negativo17@gmail.com> - 1.12.3-3
 - Temporary patch for FFMpeg 3.4 APIs.
 
