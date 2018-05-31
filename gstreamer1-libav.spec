@@ -1,5 +1,5 @@
 Name:           gstreamer1-libav
-Version:        1.14.0
+Version:        1.14.1
 Release:        1%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 License:        LGPLv2+
@@ -80,6 +80,9 @@ rm -fv %{buildroot}%{_libdir}/gstreamer-1.0/libgst*.la
 
 
 %changelog
+* Thu May 31 2018 Rex Dieter <rdieter@fedoraproject.org> - 1.14.1-1
+- 1.14.1
+
 * Thu Mar 22 2018 Rex Dieter <rdieter@fedoraproject.org> - 1.14.0-1
 - Update to 1.14.0
 
