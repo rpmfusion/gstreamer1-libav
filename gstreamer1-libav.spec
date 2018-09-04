@@ -1,5 +1,5 @@
 Name:           gstreamer1-libav
-Version:        1.10.2
+Version:        1.10.4
 Release:        1%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 Group:          Applications/Multimedia
@@ -12,7 +12,6 @@ BuildRequires:  gstreamer1-plugins-base-devel >= 1.10.0
 BuildRequires:  orc-devel
 BuildRequires:  bzip2-devel
 BuildRequires:  zlib-devel
-BuildRequires:  ffmpeg-devel
 %ifarch %{ix86} x86_64
 BuildRequires:  yasm
 %endif
@@ -52,8 +51,7 @@ export CFLAGS="$RPM_OPT_FLAGS -Wno-deprecated-declarations"
 %configure --disable-dependency-tracking \
   --disable-static \
   --with-package-name="gst-libav 1.0 rpmfusion rpm" \
-  --with-package-origin="http://rpmfusion.org/" \
-  --with-system-libav
+  --with-package-origin="http://rpmfusion.org/"
 make %{?_smp_mflags} V=1
 
 
@@ -73,6 +71,10 @@ rm $RPM_BUILD_ROOT%{_libdir}/gstreamer-1.0/libgst*.la
 
 
 %changelog
+* Tue Sep 04 2018 Leigh Scott <leigh123linux@googlemail.com> - 1.10.4-1
+- Update to 1.10.4
+- Use bundled libav till ffmpeg-3 is packaged
+
 * Wed Nov 30 2016 leigh scott <leigh123linux@googlemail.com> - 1.10.2-1
 - Update to 1.10.2
 
