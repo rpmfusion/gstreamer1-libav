@@ -8,6 +8,7 @@ Source0:        http://gstreamer.freedesktop.org/src/gst-libav/gst-libav-%{versi
 
 Patch0:         gst-ffmpeg-0.10.12-ChangeLog-UTF-8.patch
 
+BuildRequires:  gcc
 BuildRequires:  gstreamer1-devel >= %{version}
 BuildRequires:  gstreamer1-plugins-base-devel >= %{version}
 BuildRequires:  orc-devel
