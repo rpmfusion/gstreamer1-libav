@@ -1,5 +1,5 @@
 Name:           gstreamer1-libav
-Version:        1.14.4
+Version:        1.15.1
 Release:        1%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 License:        LGPLv2+
@@ -14,11 +14,7 @@ BuildRequires:  gstreamer1-plugins-base-devel >= %{version}
 BuildRequires:  orc-devel
 BuildRequires:  bzip2-devel
 BuildRequires:  zlib-devel
-## Use bundled libav as it doesn't build with F28+ ffmpeg git
-%if 0%{?fedora} < 28
-%global with_system_libav --with-system-libav
 BuildRequires:  ffmpeg-devel
-%endif
 
 %ifarch %{ix86} x86_64
 BuildRequires:  yasm
@@ -59,7 +55,7 @@ plug-in.
   --disable-static \
   --with-package-name="gst-libav 1.0 rpmfusion rpm" \
   --with-package-origin="http://rpmfusion.org/"  \
-  %{?_with_system_libav}
+  --with-system-libav
 
 %make_build V=1
 
@@ -81,6 +77,9 @@ rm -fv %{buildroot}%{_libdir}/gstreamer-1.0/libgst*.la
 
 
 %changelog
+* Sat Feb 09 2019 Leigh Scott <leigh123linux@googlemail.com> - 1.15.1-1
+- 1.15.1
+
 * Tue Oct 09 2018 Rex Dieter <rdieter@fedoraproject.org> - 1.14.4-1
 - 1.14.4
 
