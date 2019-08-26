@@ -14,7 +14,7 @@ BuildRequires:  gstreamer1-plugins-base-devel >= %{version}
 BuildRequires:  orc-devel
 BuildRequires:  bzip2-devel
 BuildRequires:  zlib-devel
-BuildRequires:  ffmpeg-devel
+BuildRequires:  python3
 
 %ifarch %{ix86} x86_64
 BuildRequires:  yasm
@@ -54,8 +54,7 @@ plug-in.
   --disable-dependency-tracking \
   --disable-static \
   --with-package-name="gst-libav 1.0 rpmfusion rpm" \
-  --with-package-origin="http://rpmfusion.org/"  \
-  --with-system-libav
+  --with-package-origin="http://rpmfusion.org/"
 
 %make_build V=1
 
