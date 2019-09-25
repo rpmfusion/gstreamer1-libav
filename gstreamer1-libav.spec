@@ -1,10 +1,10 @@
 Name:           gstreamer1-libav
-Version:        1.16.0
-Release:        2%{?dist}
+Version:        1.16.1
+Release:        1%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 License:        LGPLv2+
-URL:            http://gstreamer.freedesktop.org/
-Source0:        http://gstreamer.freedesktop.org/src/gst-libav/gst-libav-%{version}.tar.xz
+URL:            https://gstreamer.freedesktop.org/
+Source0:        %{url}/src/gst-libav/gst-libav-%{version}.tar.xz
 
 Patch0:         gst-ffmpeg-0.10.12-ChangeLog-UTF-8.patch
 
@@ -77,6 +77,9 @@ rm -fv %{buildroot}%{_libdir}/gstreamer-1.0/libgst*.la
 
 
 %changelog
+* Wed Sep 25 2019 Leigh Scott <leigh123linux@googlemail.com> - 1.16.1-1
+- 1.16.1
+
 * Wed Aug 07 2019 Leigh Scott <leigh123linux@gmail.com> - 1.16.0-2
 - Rebuild for new ffmpeg version
 
