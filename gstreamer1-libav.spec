@@ -1,10 +1,10 @@
 Name:           gstreamer1-libav
-Version:        1.14.0
+Version:        1.16.1
 Release:        1%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 License:        LGPLv2+
-URL:            http://gstreamer.freedesktop.org/
-Source0:        http://gstreamer.freedesktop.org/src/gst-libav/gst-libav-%{version}.tar.xz
+URL:            https://gstreamer.freedesktop.org/
+Source0:        %{url}/src/gst-libav/gst-libav-%{version}.tar.xz
 
 Patch0:         gst-ffmpeg-0.10.12-ChangeLog-UTF-8.patch
 
@@ -14,6 +14,7 @@ BuildRequires:  gstreamer1-plugins-base-devel >= %{version}
 BuildRequires:  orc-devel
 BuildRequires:  bzip2-devel
 BuildRequires:  zlib-devel
+BuildRequires:  ffmpeg-devel
 BuildRequires:  python3
 
 %ifarch %{ix86} x86_64
@@ -54,7 +55,8 @@ plug-in.
   --disable-dependency-tracking \
   --disable-static \
   --with-package-name="gst-libav 1.0 rpmfusion rpm" \
-  --with-package-origin="http://rpmfusion.org/"
+  --with-package-origin="http://rpmfusion.org/"  \
+  --with-system-libav
 
 %make_build V=1
 
@@ -76,6 +78,9 @@ rm -fv %{buildroot}%{_libdir}/gstreamer-1.0/libgst*.la
 
 
 %changelog
+* Fri May 08 2020 Xavier Bachelot <xavier@bachelot.org> - 1.16.1-1
+- Update to 1.16.1 to match EL8.2
+
 * Thu Mar 22 2018 Rex Dieter <rdieter@fedoraproject.org> - 1.14.0-1
 - Update to 1.14.0
 
