@@ -1,14 +1,13 @@
 Name:           gstreamer1-libav
-Version:        1.16.2
-Release:        3%{?dist}
+Version:        1.17.1
+Release:        1%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 License:        LGPLv2+
 URL:            https://gstreamer.freedesktop.org/
 Source0:        %{url}/src/gst-libav/gst-libav-%{version}.tar.xz
 
-Patch0:         gst-ffmpeg-0.10.12-ChangeLog-UTF-8.patch
-
-BuildRequires:  gcc
+BuildRequires:  gcc-c++
+BuildRequires:  meson
 BuildRequires:  gstreamer1-devel >= %{version}
 BuildRequires:  gstreamer1-plugins-base-devel >= %{version}
 BuildRequires:  orc-devel
@@ -30,7 +29,8 @@ plugins.
 
 This package provides libav-based GStreamer plug-ins.
 
-
+%if 0
+# gstreamer1 uses hotdoc which isn't provided yet
 %package devel-docs
 Summary: Development documentation for the libav GStreamer plug-in
 Requires: %{name} = %{version}-%{release}
@@ -42,6 +42,7 @@ operate on media data.
 
 This package contains the development documentation for the libav GStreamer
 plug-in.
+%endif
 
 
 %prep
@@ -49,34 +50,32 @@ plug-in.
 
 
 %build
-%configure  \
-  --disable-silent-rules --disable-fatal-warnings \
-  --disable-dependency-tracking \
-  --disable-static \
-  --with-package-name="gst-libav 1.0 rpmfusion rpm" \
-  --with-package-origin="http://rpmfusion.org/"  \
-  --with-system-libav
+%meson  \
+    -D package-name='gst-libav 1.0 rpmfusion rpm' \
+    -D package-origin='http://rpmfusion.org/' \
+    -D doc=disabled
 
-%make_build V=1
-
+%meson_build
 
 %install
-%make_install V=1
-
-rm -fv %{buildroot}%{_libdir}/gstreamer-1.0/libgst*.la
+%meson_install
 
 
 %files
-%doc AUTHORS ChangeLog NEWS README TODO
-%license COPYING.LIB
+%doc AUTHORS ChangeLog NEWS README.md
+%license COPYING
 %{_libdir}/gstreamer-1.0/libgstlibav.so
 
+%if 0
 %files devel-docs
 # Take the dir and everything below it for proper dir ownership
 %doc %{_datadir}/gtk-doc
-
+%endif
 
 %changelog
+* Mon Jun 22 2020 Leigh Scott <leigh123linux@gmail.com> - 1.17.1-1
+- 1.17.1
+
 * Thu Mar 12 2020 Leigh Scott <leigh123linux@gmail.com> - 1.16.2-3
 - Rebuilt for i686
 
