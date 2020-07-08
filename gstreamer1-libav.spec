@@ -1,5 +1,5 @@
 Name:           gstreamer1-libav
-Version:        1.17.1
+Version:        1.17.2
 Release:        1%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 License:        LGPLv2+
@@ -73,6 +73,9 @@ plug-in.
 %endif
 
 %changelog
+* Wed Jul 08 2020 Leigh Scott <leigh123linux@gmail.com> - 1.17.2-1
+- 1.17.2
+
 * Mon Jun 22 2020 Leigh Scott <leigh123linux@gmail.com> - 1.17.1-1
 - 1.17.1
 
