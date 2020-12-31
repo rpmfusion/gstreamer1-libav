@@ -1,3 +1,5 @@
+%global builtin_libav 1
+
 Name:           gstreamer1-libav
 Version:        1.18.2
 Release:        2%{?dist}
@@ -13,7 +15,7 @@ BuildRequires:  gstreamer1-plugins-base-devel >= %{version}
 BuildRequires:  orc-devel
 BuildRequires:  bzip2-devel
 BuildRequires:  zlib-devel
-BuildRequires:  ffmpeg-devel
+%{!?builtin_libav:BuildRequires:  ffmpeg-devel}
 
 %description
 GStreamer is a streaming media framework, based on graphs of filters which
