@@ -1,11 +1,10 @@
 Name:           gstreamer1-libav
 Version:        1.18.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 License:        LGPLv2+
 URL:            https://gstreamer.freedesktop.org/
 Source0:        %{url}/src/gst-libav/gst-libav-%{version}.tar.xz
-Patch0:         https://gitlab.freedesktop.org/gstreamer/gst-libav/uploads/1340cbe52e8384f4aa92b147b804f64f/gstreamer1-libav-ffmpeg44-fix.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  meson
@@ -70,6 +69,9 @@ plug-in.
 %endif
 
 %changelog
+* Wed Mar 24 2021 Leigh Scott <leigh123linux@gmail.com> - 1.18.4-2
+- Drop patch
+
 * Wed Mar 17 2021 Leigh Scott <leigh123linux@gmail.com> - 1.18.4-1
 - 1.18.4
 
