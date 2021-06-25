@@ -1,7 +1,7 @@
 Name:           gstreamer1-libav
 Epoch:          1
 Version:        1.18.4
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 License:        LGPLv2+
 URL:            https://gstreamer.freedesktop.org/
@@ -70,7 +70,7 @@ plug-in.
 %endif
 
 %changelog
-* Fri Jun 25 2021 Leigh Scott <leigh123linux@gmail.com> - 1:1.18.4-1
+* Fri Jun 25 2021 Leigh Scott <leigh123linux@gmail.com> - 1:1.18.4-3
 - Epoch back to 1.18.4
 
 * Tue Jun 08 2021 Leigh Scott <leigh123linux@gmail.com> - 1.19.1-1
