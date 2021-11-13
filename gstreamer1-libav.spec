@@ -9,6 +9,7 @@ Summary:        GStreamer 1.0 libav-based plug-ins
 License:        LGPLv2+
 URL:            https://gstreamer.freedesktop.org/
 Source0:        %{url}/src/gst-libav/gst-libav-%{version}.tar.xz
+Patch0:         https://gitlab.freedesktop.org/gstreamer/gst-libav/-/merge_requests/139.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  meson
@@ -46,8 +47,10 @@ plug-in.
 
 
 %prep
-%autosetup -p1 -n gst-libav-%{version}
-
+%setup -n gst-libav-%{version}
+%if 0%{?fedora} >= 36
+%patch0 -p1 -b ffmpeg45
+%endif
 
 %build
 %meson  \
