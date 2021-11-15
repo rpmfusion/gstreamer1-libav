@@ -3,8 +3,8 @@
 
 Name:           gstreamer1-libav
 Epoch:          1
-Version:        1.19.2
-Release:        2%{?dist}
+Version:        1.19.3
+Release:        1%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 License:        LGPLv2+
 URL:            https://gstreamer.freedesktop.org/
@@ -76,6 +76,9 @@ plug-in.
 %endif
 
 %changelog
+* Mon Nov 15 2021 Sérgio Basto <sergio@serjux.com> - 1:1.19.3-1
+- Update gstreamer1-libav to 1.19.3
+
 * Thu Nov 11 2021 Leigh Scott <leigh123linux@gmail.com> - 1:1.19.2-2
 - Rebuilt for new ffmpeg snapshot
 
