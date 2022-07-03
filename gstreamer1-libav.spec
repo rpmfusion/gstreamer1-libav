@@ -1,6 +1,3 @@
-# gstreamer1.prov is broken and hangs, workarround it
-%global __gstreamer1_provides %{nil}
-
 Name:           gstreamer1-libav
 Epoch:          1
 Version:        1.19.1
@@ -75,7 +72,6 @@ plug-in.
 %changelog
 * Mon Aug 02 2021 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 1:1.19.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-- gstreamer1.prov is broken and hangs, workarround it
 
 * Tue Jun 08 2021 Leigh Scott <leigh123linux@gmail.com> - 1.19.1-1
 - Update
