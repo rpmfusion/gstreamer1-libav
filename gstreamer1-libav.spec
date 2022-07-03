@@ -1,5 +1,4 @@
 Name:           gstreamer1-libav
-Epoch:          1
 Version:        1.19.1
 Release:        1%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
