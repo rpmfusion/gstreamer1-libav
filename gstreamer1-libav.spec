@@ -14,7 +14,7 @@ BuildRequires:  gstreamer1-plugins-base-devel >= %{version}
 BuildRequires:  orc-devel
 BuildRequires:  bzip2-devel
 BuildRequires:  zlib-devel
-BuildRequires:  ffmpeg-devel
+BuildRequires:  compat-ffmpeg4-devel
 
 %description
 GStreamer is a streaming media framework, based on graphs of filters which
@@ -47,6 +47,7 @@ plug-in.
 
 
 %build
+export PKG_CONFIG_PATH="%{_libdir}/compat-ffmpeg4/pkgconfig"
 %meson  \
     -D package-name='gst-libav 1.0 rpmfusion rpm' \
     -D package-origin='http://rpmfusion.org/' \
