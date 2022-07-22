@@ -3,13 +3,12 @@
 
 Name:           gstreamer1-libav
 Epoch:          1
-Version:        1.20.0
-Release:        2%{?dist}
+Version:        1.20.3
+Release:        1%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 License:        LGPLv2+
 URL:            https://gstreamer.freedesktop.org/
 Source0:        %{url}/src/gst-libav/gst-libav-%{version}.tar.xz
-Patch0:         https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/2074.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  meson
@@ -47,8 +46,7 @@ plug-in.
 
 
 %prep
-%setup -q -n gst-libav-%{version}
-%patch0 -p1
+%autosetup -p1 -n gst-libav-%{version}
 
 %build
 %meson  \
@@ -74,6 +72,9 @@ plug-in.
 %endif
 
 %changelog
+* Fri Jul 22 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 1:1.20.3-1
+- Updated to version 1.20.3.
+
 * Mon Jul 18 2022 Leigh Scott <leigh123linux@gmail.com> - 1:1.20.0-2
 - Fix rfbz#6354
 
