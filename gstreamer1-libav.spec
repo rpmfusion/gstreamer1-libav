@@ -4,7 +4,7 @@
 Name:           gstreamer1-libav
 Epoch:          1
 Version:        1.20.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 License:        LGPLv2+
 URL:            https://gstreamer.freedesktop.org/
@@ -74,6 +74,9 @@ plug-in.
 %endif
 
 %changelog
+* Sun Sep 04 2022 Leigh Scott <leigh123linux@gmail.com> - 1:1.20.3-3
+- Add requires ffmpeg-libs
+
 * Sun Aug 07 2022 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 1:1.20.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild and ffmpeg
   5.1
