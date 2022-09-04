@@ -19,7 +19,7 @@ BuildRequires:  bzip2-devel
 BuildRequires:  zlib-devel
 BuildRequires:  ffmpeg-devel
 
-Requires:       ffmpeg-libs
+Requires:       ffmpeg-libs%{?_isa}
 
 %description
 GStreamer is a streaming media framework, based on graphs of filters which
