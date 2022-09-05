@@ -1,6 +1,6 @@
 Name:           gstreamer1-libav
 Version:        1.18.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer 1.0 libav-based plug-ins
 License:        LGPLv2+
 URL:            https://gstreamer.freedesktop.org/
@@ -71,6 +71,9 @@ export PKG_CONFIG_PATH="%{_libdir}/compat-ffmpeg4/pkgconfig"
 %endif
 
 %changelog
+* Mon Sep 05 2022 Leigh Scott <leigh123linux@gmail.com> - 1.18.4-2
+- Rebuild for ffmpeg
+
 * Wed Mar 17 2021 Leigh Scott <leigh123linux@gmail.com> - 1.18.4-1
 - 1.18.4
 
